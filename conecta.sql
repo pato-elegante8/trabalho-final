@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 08/10/2025 às 19:44
+-- Tempo de geração: 22/10/2025 às 22:15
 -- Versão do servidor: 10.4.28-MariaDB
 -- Versão do PHP: 8.2.4
 
@@ -34,6 +34,16 @@ CREATE TABLE `moreta` (
   `cpf` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Despejando dados para a tabela `moreta`
+--
+
+INSERT INTO `moreta` (`id`, `nome`, `celular`, `cpf`) VALUES
+(1, 'enzo', '3232', '1222343'),
+(2, 'qwqw', '1121', '3w333'),
+(3, 'wqrr', '111', '333'),
+(4, 'mateus', '22122432321', '1224255533');
+
 -- --------------------------------------------------------
 
 --
@@ -42,14 +52,21 @@ CREATE TABLE `moreta` (
 
 CREATE TABLE `quest` (
   `id` int(11) NOT NULL,
-  `nome` text NOT NULL,
-  `esportes` text NOT NULL,
-  `musicas` text NOT NULL,
-  `cursos` text NOT NULL,
-  `palestras` text NOT NULL,
-  `workshops` text NOT NULL,
-  `teatro` text NOT NULL
+  `esportes` varchar(100) NOT NULL,
+  `musicas` varchar(100) NOT NULL,
+  `cursos` varchar(100) NOT NULL,
+  `palestras` varchar(100) NOT NULL,
+  `workshops` varchar(100) NOT NULL,
+  `teatros` varchar(100) NOT NULL,
+  `data_envio` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Despejando dados para a tabela `quest`
+--
+
+INSERT INTO `quest` (`id`, `esportes`, `musicas`, `cursos`, `palestras`, `workshops`, `teatros`, `data_envio`) VALUES
+(3, '', '', 'Bacharelados', '', '', '', '2025-10-22 20:10:37');
 
 -- --------------------------------------------------------
 
@@ -67,21 +84,16 @@ CREATE TABLE `respostas` (
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `usuario`
+-- Estrutura para tabela `usuarios_novos`
 --
 
-CREATE TABLE `usuario` (
-  `id` int(11) NOT NULL,
-  `login` varchar(150) NOT NULL,
-  `senha` varchar(150) NOT NULL
+CREATE TABLE `usuarios_novos` (
+  `id` int(200) NOT NULL,
+  `nome` varchar(200) NOT NULL,
+  `cep` varchar(250) NOT NULL,
+  `genero` text NOT NULL,
+  `idade` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Despejando dados para a tabela `usuario`
---
-
-INSERT INTO `usuario` (`id`, `login`, `senha`) VALUES
-(1, 'teste', 'teste');
 
 --
 -- Índices para tabelas despejadas
@@ -106,9 +118,9 @@ ALTER TABLE `respostas`
   ADD PRIMARY KEY (`id`);
 
 --
--- Índices de tabela `usuario`
+-- Índices de tabela `usuarios_novos`
 --
-ALTER TABLE `usuario`
+ALTER TABLE `usuarios_novos`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -119,13 +131,13 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de tabela `moreta`
 --
 ALTER TABLE `moreta`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de tabela `quest`
 --
 ALTER TABLE `quest`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de tabela `respostas`
@@ -134,10 +146,10 @@ ALTER TABLE `respostas`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT de tabela `usuario`
+-- AUTO_INCREMENT de tabela `usuarios_novos`
 --
-ALTER TABLE `usuario`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+ALTER TABLE `usuarios_novos`
+  MODIFY `id` int(200) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
