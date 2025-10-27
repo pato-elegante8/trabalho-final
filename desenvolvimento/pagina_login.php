@@ -1,124 +1,127 @@
+<?php
+// --- PROCESSAMENTO DO FORMULÁRIO ---
+$host = "localhost";
+$user = "root";
+$pass = "";
+$db   = "conecta";
+
+// Conexão com MySQL
+$con = new mysqli($host, $user, $pass, $db);
+if ($con->connect_error) {
+    die("Erro de conexão: " . $con->connect_error);
+}
+
+// Processa formulário
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $nome   = $con->real_escape_string($_POST['nome']);
+    $cep    = $con->real_escape_string($_POST['CEP']);
+    $genero = $con->real_escape_string($_POST['genero']);
+    $idade  = (int)$_POST['IDADE'];
+
+    $sql = "INSERT INTO usuarios_novos (nome, CEP, genero, idade) 
+            VALUES ('$nome', '$cep', '$genero', $idade)";
+
+    if ($con->query($sql) === TRUE) {
+        // Se a inserção deu certo, redireciona para formulario.php
+        header("Location: formulario.php");
+        exit();
+    } else {
+        $mensagem = "Erro ao cadastrar: " . $con->error;
+    }
+}
+
+$con->close();
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="utf-8">
-    
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" 
-    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" 
-    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-    <style>
-        body {
-            padding: 10px;
-            margin: 10px;
-        }
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 
-        h2 {
-            color: #00008B;
-        }
+<style>
+body {
+  margin: 0;
+  padding: 0;
+  background-image: url('3534908.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  font-family: Arial, sans-serif;
+}
 
-        img {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: auto;
-        }
+.top-bar { background-color: #0d2a5b; height: 60px; width: 100%; }
+.bottom-bar { background-color: #0d2a5b; height: 60px; width: 100%; position: fixed; bottom: 0; left: 0; }
 
-        .footer {
-            background-color: #0d2a5b;
-            width: 100%;
-            height: 60px;
-        }
+.card { border: none; border-radius: 15px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); background-color: rgba(255, 255, 255, 0.95); }
+.card-header { background-color: #0d2a5b; color: white; font-size: 1.2rem; border-top-left-radius: 15px !important; border-top-right-radius: 15px !important; }
+.container { margin-top: 80px; margin-bottom: 80px; }
 
-        .main-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 10px;
-        }
-
-        .user-info {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            color: orange;
-        }
-
-        .username {
-            font-weight: bold;
-            color: black;
-        }
-
-        .logout-link {
-            color: red;
-            font-weight: bold;
-            text-decoration: none;
-        }
-        
-        .logout-link:hover {
-            text-decoration: underline;
-        }
-    </style>
+.btn-success { background: linear-gradient(135deg, #00b894, #0984e3); border: none; border-radius: 50px; font-size: 18px; transition: all 0.3s ease; }
+.btn-success:hover { transform: scale(1.05); background: linear-gradient(135deg, #00cec9, #74b9ff); }
+.mensagem { text-align: center; font-weight: bold; color: #ffc107; margin-bottom: 15px; }
+</style>
 </head>
+
 <body>
 
-    
+<div class="top-bar"></div>
 
-    <img src="Captura de tela 2024-10-13 084403.png" alt="Logo">
-    <div style="margin-top: 220px;"> 
-    </div>
-    <div class="container mt-5">
-        <div class="row justify-content-center">
-            <div class="col-md-6 col-lg-4">
-                <div class="card mb-4 rounded-3 shadow-sm">
-                    <div class="card-header text-center py-3">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="#00008B" class="bi bi-person-circle" viewBox="0 0 16 16">
-                            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
-                            <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
-                        </svg>
-                        &nbsp;&nbsp;<b>LOGIN</b>
-                    </div>
-
-                    <div class="card-body">
-                        <form action="formulario.php" method="POST">
-                            <div class="mb-3">
-                                <label class="form-label"><b>LOGIN</b></label>
-                                <input class="form-control" type="text" name="login" required>
-                            </div>
-
-
-
-                            <div class="mb-3">
-                                <label class="form-label"><b>SENHA</b></label>
-                                <input class="form-control" type="password" name="senha" required>
-                            </div>
-
-                            <div class="mb-3">
-                                <label class="form-label"><b>CEP</b></label>
-                                <input class="form-control" type="text" name="CEP" required>
-                            </div>
-
-                            <div class="mb-3">
-                                <label class="form-label"><b>GENERO</b></label>
-                                <input class="form-control" type="text" name="CEP" required>
-                            </div>
-
- <div class="mb-3">
-                                <label class="form-label"><b>IDADE</b></label>
-                                <input class="form-control" type="text" name="CEP" required>
-                            </div>
-
-                            <div class="d-grid">
-                                <input type="submit" class="btn btn-outline-success" value="CADASTRAR-SE">
-                            </div>
-                        </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-6 col-lg-4">
+      <div class="card mb-4">
+        <div class="card-header text-center py-3">
+          <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="#ffc107" class="bi bi-person-circle" viewBox="0 0 16 16">
+            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+            <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
+          </svg>
+          &nbsp;<b>Bem-vindo Estudante</b>
         </div>
+
+        <div class="card-body">
+          <?php if(isset($mensagem)) { echo "<div class='mensagem'>{$mensagem}</div>"; } ?>
+          
+          <form action="" method="POST">
+            <div class="mb-3">
+              <label class="form-label"><b>NOME</b></label>
+              <input class="form-control" type="text" name="nome" required>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label"><b>CEP</b></label>
+              <input class="form-control" type="text" name="CEP" required>
+            </div>
+
+            <div class="mb-3">
+              <label for="genero" class="form-label"><b>GÊNERO</b></label>
+              <select class="form-select" id="genero" name="genero" required>
+                <option value="" selected disabled>Escolha uma opção</option>
+                <option value="masculino">MASCULINO</option>
+                <option value="feminino">FEMININO</option>
+                <option value="outro">OUTRO</option>
+              </select>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label"><b>IDADE</b></label>
+              <input class="form-control" type="number" name="IDADE" required>
+            </div>
+
+            <div class="d-grid">
+              <input type="submit" class="btn btn-success" value="CADASTRAR-SE">
+            </div>
+          </form>
+          
+        </div>
+      </div>
     </div>
- <div style= "postion:fixed; bottom:0;left:0; width:100%; height:40px; background:black."></div>
+  </div>
+</div>
+
+<div class="bottom-bar"></div>
+
 </body>
 </html>

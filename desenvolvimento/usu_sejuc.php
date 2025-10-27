@@ -43,10 +43,12 @@
                 color: red;
                 font-weight: bold;
                 text-decoration: none;
+               
             }
             .logout-link:hover {
                 text-decoration: underline;
             }
+            
         </style>
     </head>
     <body>

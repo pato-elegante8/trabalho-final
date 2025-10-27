@@ -182,7 +182,7 @@ if (!isset($_SESSION["user"])) {
                     </div>
 
                     <div class="mb-3">
-                        <label for="cursos" class="form-label">CURSOS</label>
+                        <label for="cursos" class="form-label">cursos</label>
                         <select class="form-select" id="cursos" name="cursos" required>
                             <option value="" selected disabled>Faça a sua escolha</option>
                             <option value="Bacharelados">Bacharelados</option>

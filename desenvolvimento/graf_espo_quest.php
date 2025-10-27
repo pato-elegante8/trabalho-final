@@ -13,8 +13,8 @@
 
     $dados_grafico1 = [['quest', 'Total de esportes']];
     if ($resultado1->num_rows > 0) {
-        while($linha = $resultado1->fetch_assoc()) {
-            $dados_grafico1[] = [$linha['esportes'], (int)$linha['total']];
+        while($linha1 = $resultado1->fetch_assoc()) {
+            $dados_grafico1[] = [$linha1['esportes'], (int)$linha1['total']];
         }
     }
     $conn->close();

@@ -19,23 +19,25 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
         <style>
             body {
+                background-color: #115d94;
                 padding: 5px;
                 margin: 5px;
             }
             h2 {
-                color: #00008B;
+                color: black;
             }
             .main-header {
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
-                padding: 15px 10px;
+                padding: 15px 15px;
+                color: gray;
             }
             .user-info {
                 display: flex;
                 align-items: center;
                 gap: 8px;
-                color: gray;
+                color: black;
             }
             .username {
                 font-weight: bold;
@@ -52,7 +54,6 @@
     </head>
     <body>
         <header class="main-header">
-
          <h2>CONECTA JOVEM</h2>
             <div class="user-info">
                 <?php
@@ -63,22 +64,24 @@
                 ?>
             </div>
         </header>
-        <hr>
+        <center>
         <nav>
+            <hr>
             <?php
                 include 'menu.php';
             ?>
+            <hr>
         </nav>
+        </center>
         <br>
-        <center><h2>DASHBOARD</h2></center>
-        <br/>
+        <br>
         <div class="row justify-content-center row-cols-1 row-cols-md-4 mb-4 text-center">
             <div class="col">
                 <div class="card mb-4 rounded-3 shadow-sw">
                     <div class="card-header py-3">
                         <h2>USUÁRIOS</h2>
                     </div>
-                    <div class="card-body text-center" style="background-color: #4169E1;">
+                    <div class="card-body text-center" style="background-color: ##00008B;">
                         <center>
                         <?php
                             $sql = "SELECT count(id) AS numusu FROM moreta";
@@ -106,7 +109,7 @@
                     <div class="card-header py-3">
                         <h2>QUEST</h2>
                     </div>
-                    <div class="card-body text-start" style="background-color: #4169E1;">
+                    <div class="card-body text-start" style="background-color: ##00008B;">
                         <center>
                         <?php
                             $sql = "SELECT count(id) AS numquest FROM quest";
@@ -146,6 +149,7 @@
                     </div>
                 </div>       
             </div>
+            
             <div class="col">
                 <div class="card mb-1 rounded-3 shadow-sw">
                     <div class="card-header py-2">
@@ -155,15 +159,16 @@
                         <?php
                             include 'graf_music_quest.php';
                         ?>
-                           </div>
-                        </div>
+                        
+                        
                     </div>
                 </div>       
             </div>
+
             <div class="col">
-                <div class="card mb-4 rounded-3 shadow-sw">
-                    <div class="card-header py-3">
-                        <h2>PEDIDOS POR CIDADES</h2>
+                <div class="card mb-1 rounded-3 shadow-sw">
+                    <div class="card-header py-2">
+                        <h2>OPÇÕES POR CURSOS</h2>
                     </div>
                     <div class="card-body text-start">
                         <?php
